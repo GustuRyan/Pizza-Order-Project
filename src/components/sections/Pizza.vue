@@ -79,9 +79,11 @@ import AddVariant from '../contents/pizza/select-variants.vue';
 //     isOpen.value = !isOpen.value
 //     return pizzaToppings, pizzaId, pizzaPrices;
 // };
-
 import { pizzaSearch } from '../../composables/pizzaFunctions';
-const { variantSearch,
+import { pizzaOrder } from '../../composables/pizzaFunctions';
+
+const {
+    variantSearch,
     toppingSearch,
     pizzaToppingSearch,
     pizzas,
@@ -90,7 +92,15 @@ const { variantSearch,
     isOpen,
     pizzaId,
     pizzaPrices,
-    pizzaToppings } = pizzaSearch();
+    pizzaToppings
+} = pizzaSearch();
+
+const {
+    overallPrices,
+    lastPrices,
+    updateOverall,
+    deleteCart,
+} = pizzaOrder();
 </script>
 
 <template>
@@ -119,11 +129,21 @@ const { variantSearch,
                 </div>
                 <section class="flex flex-col gap-3">
                     <PizzaCart v-for="cart in carts" :cart='cart' :variant="variantSearch(cart.pizza)"
-                        :toppings="toppingSearch(cart.toppings)" />
+                        :toppings="toppingSearch(cart.toppings)" @delete-cart="deleteCart(cart.id, cart.totalPrice)" @update-overall-prices="updateOverall(lastPrices)" />
+                    <section class="w-full h-fit mt-6">
+                        <div
+                            class="w-full flex justify-between items-center font-bold text-xl bg-gray-100 border-[1px] rounded-lg p-4">
+                            <h2>Total Harga
+                                <br>
+                                pada Keranjang
+                            </h2>
+                            <p class="text-2xl">Rp. {{ overallPrices }}</p>
+                        </div>
+                    </section>
                 </section>
             </section>
         </section>
-        <AddVariant :isOpen='isOpen' @change-open="isOpen = !isOpen" :toppings="pizzaToppings" :pizzaId="pizzaId"
+        <AddVariant :isOpen='isOpen' @change-open="isOpen = !isOpen" @update-overall-prices="updateOverall(lastPrices)" :toppings="pizzaToppings" :pizzaId="pizzaId"
             :pizzaPrices="pizzaPrices" />
     </main>
 </template>
