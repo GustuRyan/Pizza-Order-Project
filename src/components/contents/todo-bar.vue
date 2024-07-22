@@ -28,7 +28,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-import { useTodoBar } from '../../composables/todoFunction';
+import { useTodoBar } from '../../composables/todoFunctions';
 
 const props = defineProps({
     id: {

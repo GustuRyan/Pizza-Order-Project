@@ -34,6 +34,14 @@ import { defineProps, defineEmits, ref, toRefs } from 'vue';
 
 const props = defineProps ({
     isOpen: Boolean,
+    pizzaId: {
+        type: Number,
+        required: true
+    },
+    pizzaPrices: {
+        type: Number,
+        required: true
+    },
     toppings: {
         type: Object,
         required: true
