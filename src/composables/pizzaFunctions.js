@@ -144,32 +144,11 @@ export function pizzaOrder() {
         lastPrices.value = totalCount.value;
     };
 
-    const pushTopping = (list, id) => {
-        updates.value.length = 0;
-        // toppingList.value.length = 0;
-
-        list.forEach(topping => {
-            updates.value.push(topping);
-            toppingList.value.push({ topping: topping.id, prices: topping.prices });
-        });
-        
-        console.log(toppingList);
-        cart_id.value = id;
-        // console.log(updates.value.length)
-        // console.log(toppingList.value.length)
-    };
-
-    const pushList = (list) => {
-        list.value.forEach(item => {
-            toppingList.value.push({ topping: item.topping, prices: item.prices });
-        });
-    };
-
-    const updateCart = (id, list) => {
+    const updateCart = (id) => {
         const items = carts.value.find(item => item.id === id);
         if (items) {
             items.topping_ids = [];
-            list.forEach((topping, key) => {
+            toppingList.value.forEach((topping, key) => {
                 items.topping_ids.push(topping.topping);
             });
         }
@@ -200,7 +179,5 @@ export function pizzaOrder() {
         updateCart,
         updateOverall,
         deleteCart,
-        pushTopping,
-        pushList,
     };
 }
