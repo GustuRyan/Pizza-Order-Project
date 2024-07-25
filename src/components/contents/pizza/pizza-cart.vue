@@ -20,9 +20,14 @@
         <p class="w-full flex justify-end font-bold text-xl">
             <span>Rp. {{ cart.totalPrice }}</span>
         </p>
-        <button @click="$emit('delete-cart'), $emit('update-overall-prices')" class="w-fit">
-            <img src="/images/bin-logo.svg" alt="bin-logo" class="w-8 h-8 mb-4 hover:opacity-70">
-        </button>
+        <div class="w-full flex justify-between">
+            <button @click="$emit('delete-cart'), $emit('update-overall-prices')" class="w-fit">
+                <img src="/images/bin-logo.svg" alt="bin-logo" class="w-6 h-6 mb-4 hover:opacity-70">
+            </button>
+            <button @click="$emit('update-cart', toppings, cart.id), $emit('search'), $emit('update-overall-prices')" class="w-fit">
+                <img src="/images/pen_fill.svg" alt="update-logo" class="w-6 h-6 mb-4 hover:opacity-70">
+            </button>
+        </div>
     </div>
 </template>
 
@@ -46,5 +51,5 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['change-open', 'delete-cart', 'update-overall-prices'])
+const emit = defineEmits(['change-open', 'delete-cart', 'update-cart', 'update-overall-prices', 'search'])
 </script>
