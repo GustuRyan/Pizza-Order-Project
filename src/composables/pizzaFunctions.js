@@ -146,13 +146,18 @@ export function pizzaOrder() {
 
     const updateCart = (id) => {
         const items = carts.value.find(item => item.id === id);
+        const pizza = pizzas.value.find(pizza => pizza.id === items.pizza_id)
+        const totalCount = ref(pizza.prices);
+
         if (items) {
             items.topping_ids = [];
-            toppingList.value.forEach((topping, key) => {
+            items.totalPrice = totalCount;
+            toppingList.value.forEach((topping) => {
                 items.topping_ids.push(topping.topping);
+                totalCount.value += topping.prices;
+                items.totalPrice = totalCount;
             });
         }
-        console.log(items.topping_ids);
     };
 
     const deleteCart = (id) => {

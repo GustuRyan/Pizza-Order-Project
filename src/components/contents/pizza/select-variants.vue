@@ -30,7 +30,7 @@
                         </span>
                     </button>
                     <button v-else
-                        @click="updateCart(thisCart.id); $emit('change-open'); $emit('update-overall-prices'); clearCheck(); updates.length = 0; toppingLists.length = 0"
+                        @click="updateCart(thisCart.id); $emit('change-open'); $emit('update-overall-prices'); clearCheck(); "
                         class="flex items-center gap-2 px-2 py-2 w-fit rounded-md bg-[#F0BE4B] hover:bg-[#d9ac44]">
                         <img src="/images/pen_fill_white.svg" alt="cart-logo" class="w-4 h-4">
                         <span class="text-lg text-white">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </section>
-        <div @click="$emit('change-open'); removeTopping(); clearCheck(); updates.length = 0; toppingLists.length = 0"
+        <div @click="$emit('change-open'); removeTopping(); clearCheck(); "
             class="w-full h-full fixed top-0 z-[60] bg-[#121212] opacity-25"></div>
     </div>
 </template>
@@ -64,18 +64,10 @@ const props = defineProps({
         type: Array,
         required: true
     },
-    updates: {
-        type: Object,
-        // default: () => []
-    },
-    toppingLists: {
-        type: Array,
-        default: () => []
-    },
     cart_id: Number,
 });
 
-const { toppings, updates, toppingLists } = toRefs(props);
+const { toppings } = toRefs(props);
 const emit = defineEmits(['change-open', 'update-overall-prices']);
 const { addTopping, removeTopping, addCart, updateCart, pushList, toppingList } = pizzaOrder();
 
@@ -87,7 +79,7 @@ onMounted(() => {
     toppings.value.forEach((_, index) => {
         isChecks[index] = false;
     });
-    
+
     toppings.value.forEach((topping, index) => {
         allToppings.forEach(update => {
             if (topping.id === update.id) {
